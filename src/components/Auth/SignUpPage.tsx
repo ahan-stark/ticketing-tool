@@ -1,7 +1,11 @@
 import React, { SyntheticEvent, useRef } from "react";
 import { Login } from "../../utils/Auth/Login";
+import SignUpModuleCSS from "./SignUp.module.css";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
   const loginDetails: Login = {
     userName: "",
     password: "",
@@ -9,6 +13,9 @@ const SignUpPage = () => {
 
   const userName = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
+  const navigateToLogin = () => {
+    navigate("/");
+  };
   const registerUser = async (loginDetails: Login): Promise<void> => {
     fetch("http://localhost:3000/users", {
       method: "POST",
@@ -29,11 +36,19 @@ const SignUpPage = () => {
   };
   return (
     <>
-      <div>Sign Up</div>
-      <form onSubmit={signIn}>
+      <div className={SignUpModuleCSS.signUpHeading}>Sign Up</div>
+      <form className={SignUpModuleCSS.signUpForm} onSubmit={signIn}>
         <input type="text" placeholder="username" ref={userName} />
         <input type="text" placeholder="password" ref={password} />
-        <button>Sign in</button>
+        <Button variant="contained" size="small">
+          Sign Up
+        </Button>
+        <div
+          className={SignUpModuleCSS.accountExists}
+          onClick={navigateToLogin}
+        >
+          Already have an account?
+        </div>
       </form>
     </>
   );

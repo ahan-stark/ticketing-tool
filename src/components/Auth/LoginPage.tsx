@@ -1,8 +1,12 @@
 import React, { SyntheticEvent, useRef } from "react";
 import { Login } from "../../utils/Auth/Login";
 import useGetAllUsers from "../../hooks/Auth/useGetAllUsers";
+import LoginModuleCSS from "./Login.module.css";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const allUSers: Login[] = useGetAllUsers();
   const userName = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
@@ -11,6 +15,9 @@ const LoginPage = () => {
     userName: "",
     password: "",
   };
+  const navigateToSignUp = () => {
+    navigate("/signin")
+  }
   const handleLogin = (event: SyntheticEvent): void => {
     event.preventDefault();
     if (userName.current?.value && password.current?.value) {
@@ -24,13 +31,15 @@ const LoginPage = () => {
       console.log(isValidUser);
     }
   };
+
   return (
     <div>
-      <div>Login</div>
-      <form onSubmit={handleLogin}>
+      <div className={LoginModuleCSS.loginHeading}>Login</div>
+      <form className={LoginModuleCSS.loginForm} onSubmit={handleLogin}>
         <input type="text" placeholder="username" ref={userName} />
         <input type="text" placeholder="password" ref={password} />
-        <button>login</button>
+        <Button variant="contained" size="small">Login</Button>
+        <div className={LoginModuleCSS.newUserTab} onClick={navigateToSignUp}>New user ?</div>
       </form>
     </div>
   );

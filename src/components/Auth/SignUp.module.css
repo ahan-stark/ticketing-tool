@@ -1,0 +1,24 @@
+.signUpHeading {
+  font-weight: bolder;
+  font-size: 30px;
+  text-align: center;
+  margin-top: 10%;
+}
+.signUpForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2%;
+}
+input {
+  width: 19%;
+  margin-bottom: 27px;
+  border-radius: 5px;
+  text-align: center;
+  height: 40px;
+}
+.accountExists{
+    cursor: pointer;
+    color: #2756f2;
+    margin-top: 1%;
+}
