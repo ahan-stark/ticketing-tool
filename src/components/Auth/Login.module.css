@@ -22,3 +22,6 @@ input {
   color: #2756f2;
   margin-top: 1%;
 }
+nav{
+  cursor: pointer;
+}
