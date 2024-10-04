@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Login } from "../../utils/Auth/Login";
+import { Login } from "../../utils/auth/Login";
 
 const useGetAllUsers = () => {
   const [allUsers, setallUsers] = useState<Login[]>([]);

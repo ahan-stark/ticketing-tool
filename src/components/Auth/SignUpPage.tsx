@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useRef } from "react";
-import { Login } from "../../utils/Auth/Login";
+import { Login } from "../../utils/auth/Login";
 import SignUpModuleCSS from "./SignUp.module.css";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ const SignUpPage = () => {
   const userName = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
   const navigateToLogin = () => {
-    navigate("/");
+    navigate("/login");
   };
   const registerUser = async (loginDetails: Login): Promise<void> => {
     fetch("http://localhost:3000/users", {
@@ -40,7 +40,7 @@ const SignUpPage = () => {
       <form className={SignUpModuleCSS.signUpForm} onSubmit={signIn}>
         <input type="text" placeholder="username" ref={userName} />
         <input type="text" placeholder="password" ref={password} />
-        <Button variant="contained" size="small">
+        <Button  type="submit" variant="contained" size="small">
           Sign Up
         </Button>
         <div
