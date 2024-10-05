@@ -6,6 +6,8 @@ import Header from "./components/header/Header";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import Homepage from "./components/home/Homepage";
+import CreateNewTicket from "./components/home/CreateNewTicket";
+import DisplayTickets from "./components/home/DisplayTickets";
 
 function App() {
   const Layout = () => {
@@ -34,6 +36,14 @@ function App() {
         {
           path: "/home",
           element: <Homepage />,
+        },
+        {
+          path: "/create-ticket",
+          element: <CreateNewTicket />,
+        },
+        {
+          path: "/display-tickets",
+          element: <DisplayTickets />,
         },
       ],
     },

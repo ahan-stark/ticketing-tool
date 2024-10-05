@@ -55,7 +55,7 @@ const SignUpPage = () => {
           className={SignUpModuleCSS.accountExists}
           onClick={navigateToLogin}
         >
-          Already have an account?
+          Already have an account ?
         </div>
       </form>
     </>

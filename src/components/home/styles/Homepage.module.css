@@ -1,0 +1,18 @@
+.displayHome {
+  width: 98vh;
+  min-height: 89vh;
+  min-width: 96vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.flexChild {
+  border: solid orange;
+  height: 5em;
+  width: 28%;
+  text-align: center;
+  padding-top: 4%;
+  margin-top: 10%;
+  cursor: pointer;
+  border-radius: 20px;
+}
