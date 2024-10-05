@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useRef } from "react";
-import { Login } from "../../utils/auth/Login";
+import { checkIfValidUser, Login } from "../../utils/auth/Login";
 import useGetAllUsers from "../../hooks/Auth/useGetAllUsers";
 import LoginModuleCSS from "./Login.module.css";
 import { Button } from "@mui/material";
@@ -18,7 +18,7 @@ const LoginPage = () => {
     userName: "",
     password: "",
   };
-  const navigateToSignUp = () : void => {
+  const navigateToSignUp = (): void => {
     navigate("/signin");
   };
   const handleLogin = (event: SyntheticEvent): void => {
@@ -26,11 +26,7 @@ const LoginPage = () => {
     if (userName.current?.value && password.current?.value) {
       loginDetails.userName = userName.current.value;
       loginDetails.password = password.current.value;
-      const isValidUser: boolean = allUSers.some(
-        (user: Login) =>
-          user.userName === loginDetails.userName &&
-          user.password === loginDetails.password
-      );
+      const isValidUser = checkIfValidUser(loginDetails, allUSers);
       if (isValidUser) {
         const userDetails: Login[] = allUSers.filter(
           (user: Login) =>

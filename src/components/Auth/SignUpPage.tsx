@@ -1,11 +1,13 @@
 import React, { SyntheticEvent, useRef } from "react";
-import { Login } from "../../utils/auth/Login";
+import { checkIfValidUser, Login } from "../../utils/auth/Login";
 import SignUpModuleCSS from "./SignUp.module.css";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import useGetAllUsers from "../../hooks/Auth/useGetAllUsers";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
+  const allUSers: Login[] = useGetAllUsers();
   const loginDetails: Login = {
     userName: "",
     password: "",
@@ -31,7 +33,13 @@ const SignUpPage = () => {
     if (userName.current?.value && password.current?.value) {
       loginDetails.userName = userName.current.value;
       loginDetails.password = password.current.value;
-      registerUser(loginDetails);
+      const userAlreadyPresent: boolean = checkIfValidUser(
+        loginDetails,
+        allUSers
+      );
+      if (!userAlreadyPresent) {
+        registerUser(loginDetails);
+      }
     }
   };
   return (
@@ -40,7 +48,7 @@ const SignUpPage = () => {
       <form className={SignUpModuleCSS.signUpForm} onSubmit={signIn}>
         <input type="text" placeholder="username" ref={userName} />
         <input type="text" placeholder="password" ref={password} />
-        <Button  type="submit" variant="contained" size="small">
+        <Button type="submit" variant="contained" size="small">
           Sign Up
         </Button>
         <div
