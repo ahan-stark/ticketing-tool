@@ -3,14 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { addLogin, removeLogin } from "../../store/auth/LoginSlice";
 import { Button } from "@mui/material";
+import { addUser, removeUser } from "../../store/user/userSlice";
 
 const Header = () => {
   const navigate = useNavigate();
   const curLocation = useLocation();
   const dispatch = useDispatch();
   const checkStorageForUser = localStorage.getItem("user");
+  const loggedInStatus: boolean = useSelector(
+    (store: any) => store.authLogin.isLoggedIn
+  );
   if (checkStorageForUser) {
-    dispatch(addLogin());
+    if (!loggedInStatus) {
+      dispatch(addLogin());
+      dispatch(addUser(JSON.parse(checkStorageForUser)));
+    }
   }
   const navigateToHome = (): void => {
     navigate("/home");
@@ -23,6 +30,7 @@ const Header = () => {
   const logout = (): void => {
     localStorage.clear();
     dispatch(removeLogin());
+    dispatch(removeUser());
   };
   return (
     <div>

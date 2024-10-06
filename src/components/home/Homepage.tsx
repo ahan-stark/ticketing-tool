@@ -1,6 +1,4 @@
 import React from "react";
-import CreateNewTicket from "./CreateNewTicket";
-import DisplayTickets from "./DisplayTickets";
 import HomepageCSS from "../home/styles/Homepage.module.css";
 import { useNavigate } from "react-router-dom";
 

@@ -6,6 +6,7 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addLogin } from "../../store/auth/LoginSlice";
+import { addUser } from "../../store/user/userSlice";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -33,8 +34,9 @@ const LoginPage = () => {
             user.userName === userName.current?.value &&
             user.password === password.current?.value
         );
-        localStorage.setItem("user", userDetails[0].toString());
+        localStorage.setItem("user", JSON.stringify(userDetails[0]));
         dispatch(addLogin());
+        dispatch(addUser(userDetails[0]));
         console.log(userDetails);
       }
       console.log(isValidUser);

@@ -15,4 +15,9 @@
   margin-top: 10%;
   cursor: pointer;
   border-radius: 20px;
+  font-weight: bold;
+}
+.flexChild:hover {
+  background: lightgray;
+  scale: 1.1;
 }

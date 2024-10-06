@@ -6,7 +6,7 @@ import Header from "./components/header/Header";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import Homepage from "./components/home/Homepage";
-import CreateNewTicket from "./components/home/CreateNewTicket";
+import CreateNewTicket from "./components/home/createTicket/CreateNewTicket";
 import DisplayTickets from "./components/home/DisplayTickets";
 
 function App() {
