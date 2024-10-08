@@ -19,7 +19,9 @@ export interface SimpleDialogProps {
   onClose: (value: Login) => void;
   userDetails: Login[];
 }
-type SetUserInfo = React.Dispatch<React.SetStateAction<Login>>;
+type SetUserInfo = React.Dispatch<
+  React.SetStateAction<Login | null | undefined>
+>;
 
 function SimpleDialog(props: SimpleDialogProps) {
   const { onClose, open, userDetails } = props;
@@ -57,8 +59,10 @@ export default function DialogDemo(props: { setUserInfo: SetUserInfo }) {
   const { setUserInfo } = props;
   const fetchUsers = async (): Promise<void> => {
     const userData = await fetch("http://localhost:3000/users");
-    const userJsonData : Login[] = await userData.json();
-    const filterUsers : Login[] = userJsonData.filter((user : Login) => user.id != curUser.id);
+    const userJsonData: Login[] = await userData.json();
+    const filterUsers: Login[] = userJsonData.filter(
+      (user: Login) => user.id != curUser.id
+    );
     setUserDetails(filterUsers);
   };
   const [userDetails, setUserDetails] = useState<Login[]>([
@@ -80,7 +84,7 @@ export default function DialogDemo(props: { setUserInfo: SetUserInfo }) {
   const handleClose = (user: Login) => {
     setOpen(false);
 
-    setUserInfo(user);
+    setUserInfo!(user);
   };
   return (
     <div>
