@@ -3,7 +3,7 @@ import { checkIfValidUser, Login } from "../../utils/auth/Login";
 import SignUpModuleCSS from "./SignUp.module.css";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import useGetAllUsers from "../../hooks/Auth/useGetAllUsers";
+import useGetAllUsers from "../../hooks/auth/useGetAllUsers";
 
 const SignUpPage = () => {
   const navigate = useNavigate();

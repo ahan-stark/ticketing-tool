@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import Homepage from "./components/home/Homepage";
 import CreateNewTicket from "./components/home/createTicket/CreateNewTicket";
-import DisplayTickets from "./components/home/DisplayTickets";
+import DisplayTickets from "./components/home/displayTicket/DisplayTickets";
 
 function App() {
   const Layout = () => {

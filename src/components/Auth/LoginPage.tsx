@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useRef } from "react";
 import { checkIfValidUser, Login } from "../../utils/auth/Login";
-import useGetAllUsers from "../../hooks/Auth/useGetAllUsers";
+import useGetAllUsers from "../../hooks/auth/useGetAllUsers";
 import LoginModuleCSS from "./Login.module.css";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
