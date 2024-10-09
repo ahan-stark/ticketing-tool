@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { Ticket } from "../../../utils/tickets/Ticket";
+import StickyHeadTable from "../../materialUI/StickyHeadTable";
 
 const DisplayTickets = () => {
   const assignedTickets: Ticket[] = useSelector(
@@ -13,6 +14,7 @@ const DisplayTickets = () => {
       {assignedTickets.map((ticket) => (
         <div>{JSON.stringify(ticket)}</div>
       ))}
+      <StickyHeadTable />
     </div>
   );
 };
