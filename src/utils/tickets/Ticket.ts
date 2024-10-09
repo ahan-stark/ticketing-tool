@@ -1,6 +1,7 @@
 import { Login } from "../auth/Login";
 
 export interface Ticket {
+  id?: string;
   assignerId: string;
   assignerName: string;
   assignedDate: string;

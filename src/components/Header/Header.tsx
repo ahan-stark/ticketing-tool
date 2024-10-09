@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { addLogin, removeLogin } from "../../store/auth/LoginSlice";
 import { Button } from "@mui/material";
 import { addUser, removeUser } from "../../store/user/userSlice";
+import { removeAssignedTickets } from "../../store/tickets/TicketSlice";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ const Header = () => {
     localStorage.clear();
     dispatch(removeLogin());
     dispatch(removeUser());
+    dispatch(removeAssignedTickets());
   };
   return (
     <div>

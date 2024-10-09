@@ -11,9 +11,6 @@ const DisplayTickets = () => {
   if (assignedTickets.length === 0) return <div>No Tickets!</div>;
   return (
     <div>
-      {assignedTickets.map((ticket) => (
-        <div>{JSON.stringify(ticket)}</div>
-      ))}
       <StickyHeadTable />
     </div>
   );

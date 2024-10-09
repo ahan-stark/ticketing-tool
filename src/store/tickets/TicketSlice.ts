@@ -9,7 +9,11 @@ const TicketSlice = createSlice({
     addAssignedTickets: (state, action: PayloadAction<Ticket[]>) => {
       return action.payload; // since states are not mutable we should use explicit return if mutating the state
     },
+    removeAssignedTickets: (state) => {
+      return [];
+    },
   },
 });
-export const { addAssignedTickets } = TicketSlice.actions;
+export const { addAssignedTickets, removeAssignedTickets } =
+  TicketSlice.actions;
 export default TicketSlice.reducer;

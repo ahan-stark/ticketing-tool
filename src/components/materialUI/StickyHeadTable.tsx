@@ -7,6 +7,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import { Button } from "@mui/material";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { Ticket } from "../../utils/tickets/Ticket";
 
 interface Column {
   id: "assigner" | "date" | "description";
@@ -44,20 +48,12 @@ function createData(
   return { id, assigner, date, description };
 }
 
-const rows = [
-  createData("1", "ahan", "07-11-2024", "please resolve it ASAP"),
-  createData("1", "ahan", "07-11-2024", "please resolve it ASAP"),
-  createData("1", "ahan", "07-11-2024", "please resolve it ASAP"),
-  createData("1", "ahan", "07-11-2024", "please resolve it ASAP"),
-  createData("1", "ahan", "07-11-2024", "please resolve it ASAP"),
-  createData("1", "ahan", "07-11-2024", "please resolve it ASAP"),
-  createData("1", "ahan", "07-11-2024", "please resolve it ASAP"),
-  createData("1", "ahan", "07-11-2024", "please resolve it ASAP"),
-  createData("1", "ahan", "07-11-2024", "please resolve it ASAP"),
-  createData("1", "ahan", "07-11-2024", "please resolve it ASAP"),
-];
+const rows: Data[] = [];
 
 export default function StickyHeadTable() {
+  const assignedTickets: Ticket[] = useSelector(
+    (store: RootState) => store.tickets
+  );
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -71,6 +67,15 @@ export default function StickyHeadTable() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  const rows: Data[] = assignedTickets.map(
+    (ticket: Ticket): Data =>
+      createData(
+        ticket.id!,
+        ticket.assignerName,
+        ticket.assignedDate,
+        ticket.ticketDescription
+      )
+  );
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -87,6 +92,7 @@ export default function StickyHeadTable() {
                   {column.label}
                 </TableCell>
               ))}
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -108,6 +114,11 @@ export default function StickyHeadTable() {
                         </TableCell>
                       );
                     })}
+                    <TableCell>
+                      <Button variant="contained" size="small">
+                        Resolve
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 );
               })}

@@ -7,13 +7,19 @@ import { RootState } from "../../store/store";
 import { Login } from "../../utils/auth/Login";
 import { useDispatch } from "react-redux";
 import { addAssignedTickets } from "../../store/tickets/TicketSlice";
+import { Ticket } from "../../utils/tickets/Ticket";
 
 const Homepage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userDetails: Login = useSelector((store: RootState) => store.user);
+  const assignedTicketsInStore: Ticket[] = useSelector(
+    (store: RootState) => store.tickets
+  );
   const assignedToUser = useFetchAssignedTickets(userDetails.id!);
-  if (assignedToUser) {
+  if (assignedToUser && assignedTicketsInStore.length === 0) {
+    console.log("hello");
+
     dispatch(addAssignedTickets(assignedToUser));
   }
   const navigateToCreateTicket = (): void => {
