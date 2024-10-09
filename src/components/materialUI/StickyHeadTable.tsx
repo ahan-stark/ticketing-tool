@@ -47,9 +47,6 @@ function createData(
 ): Data {
   return { id, assigner, date, description };
 }
-
-const rows: Data[] = [];
-
 export default function StickyHeadTable() {
   const assignedTickets: Ticket[] = useSelector(
     (store: RootState) => store.tickets
@@ -102,9 +99,6 @@ export default function StickyHeadTable() {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                     {columns.map((column) => {
-                      console.log(row);
-                      console.log((row as Data)[column.id]);
-
                       const value = (row as any)[column.id];
                       return (
                         <TableCell key={column.id} align={column.align}>

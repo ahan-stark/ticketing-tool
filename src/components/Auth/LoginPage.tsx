@@ -37,9 +37,7 @@ const LoginPage = () => {
         localStorage.setItem("user", JSON.stringify(userDetails[0]));
         dispatch(addLogin());
         dispatch(addUser(userDetails[0]));
-        console.log(userDetails);
       }
-      console.log(isValidUser);
     }
   };
 

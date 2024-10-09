@@ -26,7 +26,6 @@ const SignUpPage = () => {
       },
       body: JSON.stringify(loginDetails),
     });
-    console.log("success");
   };
   const signIn = (event: SyntheticEvent): void => {
     event.preventDefault();
