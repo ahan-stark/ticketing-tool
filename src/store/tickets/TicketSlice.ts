@@ -12,8 +12,17 @@ const TicketSlice = createSlice({
     removeAssignedTickets: (state) => {
       return [];
     },
+    updateAssignedTickets: (state, action) => {
+      const indexOfTicket = state.findIndex(
+        (ticket: Ticket) => (ticket.id = action.payload)
+      );
+      state.splice(indexOfTicket, 1);
+    },
   },
 });
-export const { addAssignedTickets, removeAssignedTickets } =
-  TicketSlice.actions;
+export const {
+  addAssignedTickets,
+  removeAssignedTickets,
+  updateAssignedTickets,
+} = TicketSlice.actions;
 export default TicketSlice.reducer;

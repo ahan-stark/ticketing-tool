@@ -5,6 +5,9 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 import { TransitionsModalProps } from "../../utils/materialUI/Modal";
+import { Button } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { updateAssignedTickets } from "../../store/tickets/TicketSlice";
 
 const style = {
   position: "absolute",
@@ -23,7 +26,16 @@ export default function TransitionsModal({
   open,
   ticketDetails,
 }: TransitionsModalProps) {
+  const dispatch = useDispatch();
+  const [state, setState] = React.useState<boolean | null>(null);
   const handleClose = () => setOpenModal(false);
+  const resolveTicket = async (ticketId: string): Promise<void> => {
+    await fetch("http://localhost:3000/tickets/" + ticketId, {
+      method: "DELETE",
+    });
+    dispatch(updateAssignedTickets(ticketId));
+    handleClose();
+  };
 
   return (
     <div>
@@ -45,8 +57,29 @@ export default function TransitionsModal({
             <Typography id="transition-modal-title" variant="h6" component="h2">
               Ticket Details
             </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              {JSON.stringify(ticketDetails)}
+            {ticketDetails && (
+              <>
+                <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+                  Assigned By : {ticketDetails.assigner}
+                </Typography>
+                <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+                  Assigned Date : {ticketDetails.date}
+                </Typography>
+                <Typography sx={{ mt: 2 }}>
+                  <div>Description : {ticketDetails.description}</div>
+                </Typography>
+              </>
+            )}
+            <Typography sx={{ mt: 3 }}>
+              <Button
+                variant="contained"
+                size="small"
+                onClick={() => {
+                  resolveTicket(ticketDetails.id);
+                }}
+              >
+                Resolve
+              </Button>
             </Typography>
           </Box>
         </Fade>
