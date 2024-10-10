@@ -11,14 +11,9 @@ import { Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { Ticket } from "../../utils/tickets/Ticket";
-
-interface Column {
-  id: "assigner" | "date" | "description";
-  label: string;
-  minWidth?: number;
-  align?: "right";
-  format?: (value: number) => string;
-}
+import { useState } from "react";
+import TransitionsModal from "./TransitionsModal";
+import { Column, Data } from "../../utils/materialUI/Table";
 
 const columns: readonly Column[] = [
   { id: "assigner", label: "Assigner", minWidth: 170 },
@@ -32,13 +27,6 @@ const columns: readonly Column[] = [
   },
 ];
 
-interface Data {
-  id: string;
-  assigner: string;
-  date: string;
-  description: string;
-}
-
 function createData(
   id: string,
   assigner: string,
@@ -48,6 +36,8 @@ function createData(
   return { id, assigner, date, description };
 }
 export default function StickyHeadTable() {
+  const [ticketDetails, setTicketDetails] = useState<Data>();
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const assignedTickets: Ticket[] = useSelector(
     (store: RootState) => store.tickets
   );
@@ -73,6 +63,12 @@ export default function StickyHeadTable() {
         ticket.ticketDescription
       )
   );
+  const displayTicketOnModal = (data: Data) => {
+    console.log(data);
+    
+    setModalOpen(true);
+    setTicketDetails(data);
+  };
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -109,9 +105,22 @@ export default function StickyHeadTable() {
                       );
                     })}
                     <TableCell>
-                      <Button variant="contained" size="small">
+                      <Button
+                        variant="contained"
+                        size="small"
+                        onClick={() => {
+                          displayTicketOnModal(row);
+                        }}
+                      >
                         Resolve
                       </Button>
+                      <TransitionsModal
+                        open={modalOpen}
+                        setOpenModal={() => {
+                          setModalOpen(!modalOpen);
+                        }}
+                        ticketDetails={ticketDetails!}
+                      />
                     </TableCell>
                   </TableRow>
                 );

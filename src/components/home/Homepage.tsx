@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import HomepageCSS from "../home/styles/Homepage.module.css";
 import { useNavigate } from "react-router-dom";
 import useFetchAssignedTickets from "../../hooks/tickets/useFetchAssignedTickets";
@@ -20,9 +20,11 @@ const Homepage = () => {
     (store: RootState) => store.tickets
   );
   const assignedToUser = useFetchAssignedTickets(userDetails.id!);
-  if (assignedToUser && assignedTicketsInStore.length === 0 && isLoggedIn) {
-    dispatch(addAssignedTickets(assignedToUser));
-  }
+  useEffect(() => {
+    if (assignedToUser && assignedTicketsInStore.length === 0 && isLoggedIn) {
+      dispatch(addAssignedTickets(assignedToUser));
+    }
+  }, [assignedToUser, assignedTicketsInStore.length, isLoggedIn]);
   const navigateToCreateTicket = (): void => {
     navigate("/create-ticket");
   };
