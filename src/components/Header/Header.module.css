@@ -1,0 +1,32 @@
+.headerLayout {
+  display: flex;
+  padding-top: 1.5%;
+  padding-bottom: 1.5%;
+  padding-left: 1.5%;
+  background: rgb(63, 251, 239);
+  background: linear-gradient(
+    90deg,
+    rgba(63, 251, 239, 1) 5%,
+    rgba(242, 252, 70, 1) 55%
+  );
+}
+.heading {
+  font-size: xx-large;
+  color: darkgreen;
+}
+
+.btnFlex {
+  display: flex;
+  margin-left: auto;
+  margin-top: 16px;
+  padding-right: 3%;
+  gap: 1em;
+}
+.homeBtn {
+  width: 99px;
+  height: 36px;
+}
+.logOutBtn {
+  width: 99px;
+  height: 36px;
+}

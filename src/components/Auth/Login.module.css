@@ -22,3 +22,8 @@ input {
   color: #2756f2;
   margin-top: 1%;
 }
+.errorMsg {
+  text-align: center;
+  padding-top: 15px;
+  color: red;
+}

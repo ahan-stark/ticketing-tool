@@ -1,0 +1,44 @@
+.formFlex {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  min-height: 69.6vh;
+  align-items: center;
+  padding-top: 4%;
+}
+.childFormDiv {
+  display: flex;
+  flex-direction: row;
+  width: auto;
+  gap: 3%;
+  padding-top: 2.5%;
+}
+.assignBtn {
+  width: 6em;
+  height: 2.7em;
+}
+.assigneeInput {
+  width: 19em;
+  height: 3em;
+  border-radius: 9px;
+  margin-left: 1em;
+}
+.descInput {
+  width: 27em;
+  margin-left: 1em;
+  height: 10em;
+  border-radius: 9px;
+}
+.chooseAssignBtn {
+  margin-top: 4px;
+}
+.formTag {
+  font-size: x-large;
+  font-weight: 600;
+  color: darkgreen;
+}
+.errorMsg {
+  padding-top: 15px;
+  color: red;
+  text-allign : center;
+}

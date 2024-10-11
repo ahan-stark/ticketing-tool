@@ -17,8 +17,18 @@ input {
   text-align: center;
   height: 40px;
 }
-.accountExists{
-    cursor: pointer;
-    color: #2756f2;
-    margin-top: 1%;
+.accountExists {
+  cursor: pointer;
+  color: #2756f2;
+  margin-top: 1%;
+}
+.errorMsg {
+  text-align: center;
+  padding-top: 15px;
+  color: red;
+}
+.successMsg {
+  text-align: center;
+  padding-top: 15px;
+  color: #1fa308;
 }

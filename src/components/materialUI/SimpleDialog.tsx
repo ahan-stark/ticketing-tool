@@ -88,8 +88,12 @@ export default function DialogDemo(props: { setUserInfo: SetUserInfo }) {
   };
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Choose Assignee
+      <Button
+        variant="contained"
+        onClick={handleClickOpen}
+        sx={{ mt: 0.5 }} 
+      >
+        Choose
       </Button>
       <SimpleDialog
         open={open}

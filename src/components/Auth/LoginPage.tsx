@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useRef } from "react";
+import React, { SyntheticEvent, useRef, useState } from "react";
 import { checkIfValidUser, Login } from "../../utils/auth/Login";
 import useGetAllUsers from "../../hooks/auth/useGetAllUsers";
 import LoginModuleCSS from "./Login.module.css";
@@ -22,8 +22,21 @@ const LoginPage = () => {
   const navigateToSignUp = (): void => {
     navigate("/signin");
   };
+  const [errorMsg, setErrorMsg] = useState<string>("");
+  const clearErrorMsg = (): void => {
+    setTimeout(() => {
+      setErrorMsg("");
+    }, 2000);
+  };
   const handleLogin = (event: SyntheticEvent): void => {
     event.preventDefault();
+    if (!userName.current?.value) {
+      setErrorMsg("Enter username");
+      clearErrorMsg();
+    } else if (!password.current?.value) {
+      setErrorMsg("Enter password");
+      clearErrorMsg();
+    }
     if (userName.current?.value && password.current?.value) {
       loginDetails.userName = userName.current.value;
       loginDetails.password = password.current.value;
@@ -37,6 +50,9 @@ const LoginPage = () => {
         localStorage.setItem("user", JSON.stringify(userDetails[0]));
         dispatch(addLogin());
         dispatch(addUser(userDetails[0]));
+      } else {
+        setErrorMsg("Username and Password not matching");
+        clearErrorMsg();
       }
     }
   };
@@ -57,6 +73,11 @@ const LoginPage = () => {
         </Button>
         <div className={LoginModuleCSS.newUserTab} onClick={navigateToSignUp}>
           New user ?
+        </div>
+        <div>
+          {errorMsg && (
+            <div className={LoginModuleCSS.errorMsg}>{errorMsg}</div>
+          )}
         </div>
       </form>
     </div>
