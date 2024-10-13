@@ -69,9 +69,9 @@ const SignUpPage = () => {
     <>
       <div className={SignUpModuleCSS.signUpHeading}>Sign Up</div>
       <form className={SignUpModuleCSS.signUpForm} onSubmit={signIn}>
-        <input type="text" placeholder="username" ref={userName} />
-        <input type="text" placeholder="password" ref={password} />
-        <Button type="submit" variant="contained" size="small">
+        <input type="text" placeholder="Username" ref={userName} />
+        <input type="text" placeholder="Password" ref={password} />
+        <Button type="submit" variant="contained" size="small" data-testid = "signInBtn">
           Sign Up
         </Button>
         <div
@@ -82,7 +82,7 @@ const SignUpPage = () => {
         </div>
         <div>
           {errorMsg && (
-            <div className={SignUpModuleCSS.errorMsg}>{errorMsg}</div>
+            <div className={SignUpModuleCSS.errorMsg} data-testid = "errorMsg">{errorMsg}</div>
           )}
         </div>
         <div>

@@ -33,7 +33,7 @@ const Homepage = () => {
   };
   return (
     <div className={HomepageCSS.displayHome}>
-      <div className={HomepageCSS.flexChild} onClick={navigateToCreateTicket}>
+      <div className={HomepageCSS.flexChild} onClick={navigateToCreateTicket} data-testid = "createTicketTab">
         Create new ticket
       </div>
       <div className={HomepageCSS.flexChild} onClick={navigateToDisplayTickets}>

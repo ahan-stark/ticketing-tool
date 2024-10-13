@@ -66,9 +66,9 @@ const LoginPage = () => {
           handleLogin(event);
         }}
       >
-        <input type="text" placeholder="username" ref={userName} />
-        <input type="text" placeholder="password" ref={password} />
-        <Button type="submit" variant="contained" size="small">
+        <input type="text" placeholder="Username" ref={userName} />
+        <input type="text" placeholder="Password" ref={password} />
+        <Button type="submit" variant="contained" size="small" data-testid = "logInBtn">
           Login
         </Button>
         <div className={LoginModuleCSS.newUserTab} onClick={navigateToSignUp}>
@@ -76,7 +76,7 @@ const LoginPage = () => {
         </div>
         <div>
           {errorMsg && (
-            <div className={LoginModuleCSS.errorMsg}>{errorMsg}</div>
+            <div className={LoginModuleCSS.errorMsg} data-testid = "error-msg">{errorMsg}</div>
           )}
         </div>
       </form>
