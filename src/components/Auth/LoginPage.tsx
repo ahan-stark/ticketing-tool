@@ -1,6 +1,6 @@
-import React, { SyntheticEvent, useRef, useState } from "react";
+import React, { SyntheticEvent, useRef, useState, useEffect } from "react";
 import { checkIfValidUser, Login } from "../../utils/auth/Login";
-import useGetAllUsers from "../../hooks/auth/useGetAllUsers";
+import { useGetUser } from "../../hooks/auth/useGetAllUsers";
 import LoginModuleCSS from "./Login.module.css";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -11,18 +11,15 @@ import { addUser } from "../../store/user/userSlice";
 const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const allUSers: Login[] = useGetAllUsers();
   const userName = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
-
-  const loginDetails: Login = {
+  const [loginDetails, setLoginDetails] = useState<Login>({
     userName: "",
     password: "",
-  };
-  const navigateToSignUp = (): void => {
-    navigate("/signin");
-  };
+  });
   const [errorMsg, setErrorMsg] = useState<string>("");
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const { user, loading } = useGetUser(loginDetails.userName);
   const clearErrorMsg = (): void => {
     setTimeout(() => {
       setErrorMsg("");
@@ -33,50 +30,64 @@ const LoginPage = () => {
     if (!userName.current?.value) {
       setErrorMsg("Enter username");
       clearErrorMsg();
+      return;
     } else if (!password.current?.value) {
       setErrorMsg("Enter password");
       clearErrorMsg();
+      return;
+    } else {
+      setLoginDetails({
+        userName: userName.current.value,
+        password: password.current.value,
+      });
+      setTimeout(() => {
+        setIsSubmitted(true);
+      }, 100);
     }
-    if (userName.current?.value && password.current?.value) {
-      loginDetails.userName = userName.current.value;
-      loginDetails.password = password.current.value;
-      const isValidUser = checkIfValidUser(loginDetails, allUSers);
+  };
+
+  useEffect(() => {
+    if (isSubmitted && loginDetails.userName && loginDetails.password) {
+      const isValidUser = user ? checkIfValidUser(loginDetails, user) : false;
       if (isValidUser) {
-        const userDetails: Login[] = allUSers.filter(
-          (user: Login) =>
-            user.userName === userName.current?.value &&
-            user.password === password.current?.value
-        );
-        localStorage.setItem("user", JSON.stringify(userDetails[0]));
+        localStorage.setItem("user", JSON.stringify(user));
         dispatch(addLogin());
-        dispatch(addUser(userDetails[0]));
+        dispatch(addUser(user!));
+        setIsSubmitted(false);
       } else {
         setErrorMsg("Username and Password not matching");
         clearErrorMsg();
+        setIsSubmitted(false);
       }
     }
+  }, [isSubmitted, user, loginDetails]);
+
+  const navigateToSignUp = (): void => {
+    navigate("/signin");
   };
 
   return (
     <div>
       <div className={LoginModuleCSS.loginHeading}>Login</div>
-      <form
-        className={LoginModuleCSS.loginForm}
-        onSubmit={(event: SyntheticEvent) => {
-          handleLogin(event);
-        }}
-      >
+      <form className={LoginModuleCSS.loginForm} onSubmit={handleLogin}>
         <input type="text" placeholder="Username" ref={userName} />
         <input type="text" placeholder="Password" ref={password} />
-        <Button type="submit" variant="contained" size="small" data-testid = "logInBtn">
+        <Button
+          type="submit"
+          variant="contained"
+          size="small"
+          data-testid="logInBtn"
+        >
           Login
         </Button>
         <div className={LoginModuleCSS.newUserTab} onClick={navigateToSignUp}>
-          New user ?
+          New user?
         </div>
         <div>
           {errorMsg && (
-            <div className={LoginModuleCSS.errorMsg} data-testid = "error-msg">{errorMsg}</div>
+            <div className={LoginModuleCSS.errorMsg} data-testid="error-msg">
+              {errorMsg}
+            </div>
           )}
         </div>
       </form>

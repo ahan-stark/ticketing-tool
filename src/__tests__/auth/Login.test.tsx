@@ -1,12 +1,11 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import LoginPage from "../components/auth/LoginPage";
-import {
-  BrowserRouter,
-} from "react-router-dom";
+import LoginPage from "../../components/auth/LoginPage";
+import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "../store/store";
+import store from "../../store/store";
 
 describe("Login Page", () => {
+  beforeEach(() => {});
   test("login page should load", () => {
     render(
       <Provider store={store}>
@@ -17,7 +16,7 @@ describe("Login Page", () => {
     );
     const inpBox = screen.getAllByRole("textbox");
     const loginBtn = screen.getByTestId("logInBtn");
-    const navigatToSignUp = screen.getByText("New user ?");
+    const navigatToSignUp = screen.getByText(/New user ?/i);
     expect(inpBox.length).toBe(2);
     expect(loginBtn).toBeInTheDocument();
     expect(navigatToSignUp).toBeInTheDocument();

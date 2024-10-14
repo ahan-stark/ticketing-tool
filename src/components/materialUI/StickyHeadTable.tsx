@@ -64,8 +64,6 @@ export default function StickyHeadTable() {
       )
   );
   const displayTicketOnModal = (data: Data) => {
-    console.log(data);
-    
     setModalOpen(true);
     setTicketDetails(data);
   };

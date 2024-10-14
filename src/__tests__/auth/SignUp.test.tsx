@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import SignUpPage from "../components/auth/SignUpPage";
+import SignUpPage from "../../components/auth/SignUpPage";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import store from "../store/store";
+import store from "../../store/store";
 
 describe("Sign Up Page", () => {
   test("Sign up screen should load", () => {
@@ -14,7 +14,7 @@ describe("Sign Up Page", () => {
       </Provider>
     );
     const inpBox = screen.getAllByRole("textbox");
-    const navigatToLogin = screen.getByText("Already have an account ?");
+    const navigatToLogin = screen.getByText(/Already have an account?/i);
     expect(inpBox.length).toBe(2);
     expect(navigatToLogin).toBeInTheDocument();
   });
