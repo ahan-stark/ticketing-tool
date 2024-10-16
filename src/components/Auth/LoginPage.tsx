@@ -19,14 +19,14 @@ const LoginPage = () => {
   });
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-  const { user, loading } = useGetUser(loginDetails.userName);
+  const user: Login[] | null = useGetUser(loginDetails.userName);
   const clearErrorMsg = (): void => {
     setTimeout(() => {
       setErrorMsg("");
     }, 2000);
   };
   const handleLogin = (event: SyntheticEvent): void => {
-    event.preventDefault();
+    event.preventDefault();    
     if (!userName.current?.value) {
       setErrorMsg("Enter username");
       clearErrorMsg();
@@ -47,20 +47,26 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    if (isSubmitted && loginDetails.userName && loginDetails.password) {
-      const isValidUser = user ? checkIfValidUser(loginDetails, user) : false;
-      if (isValidUser) {
-        localStorage.setItem("user", JSON.stringify(user));
-        dispatch(addLogin());
-        dispatch(addUser(user!));
-        setIsSubmitted(false);
-      } else {
-        setErrorMsg("Username and Password not matching");
-        clearErrorMsg();
-        setIsSubmitted(false);
+    if (!isSubmitted) return;
+    if (loginDetails.userName && loginDetails.password) {
+      if (user) {
+        const isValidUser = user
+          ? checkIfValidUser(loginDetails, user[0])
+          : false;
+        if (isValidUser) {
+          localStorage.setItem("user", JSON.stringify(user));
+          dispatch(addLogin());
+          dispatch(addUser(user[0]!));
+          setIsSubmitted(false);
+        } else {
+          setErrorMsg("Username and Password not matching");
+          clearErrorMsg();
+          setIsSubmitted(false);
+        }
       }
     }
-  }, [isSubmitted, user, loginDetails]);
+    setIsSubmitted(false);
+  }, [isSubmitted]);
 
   const navigateToSignUp = (): void => {
     navigate("/signin");

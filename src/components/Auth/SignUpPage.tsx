@@ -9,13 +9,14 @@ const SignUpPage = () => {
   const navigate = useNavigate();
   const userName = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string>();
   const [successMsg, setSuccessMsg] = useState<string>();
   const [loginDetails, setLoginDetails] = useState<Login | undefined>(
     undefined
   );
 
-  const { user: userInfo, loading } = useGetUser(
+  let userInfo: Login[] | null = useGetUser(
     loginDetails?.userName ?? undefined
   );
   const clearInputs = () => {
@@ -24,26 +25,26 @@ const SignUpPage = () => {
   };
 
   useEffect(() => {
-    console.log(userInfo);
     if (loginDetails?.userName && loginDetails?.password) {
-      if (loading) return;
-      if (userInfo !== undefined && userInfo !== null) {
-        setSuccessMsg("");
+      if (!userInfo) return;
+      if (userInfo && userInfo?.length !== 0) {
         setErrorMsg("User already registered");
+        setSuccessMsg("");
         clearMsg(setErrorMsg);
         return;
-      } else if (userInfo === null) {
+      }
+      if (userInfo && userInfo.length === 0) {
         registerUser(loginDetails);
         setSuccessMsg("Successfully Registered");
+        setErrorMsg("");
         clearMsg(setSuccessMsg);
         clearInputs();
         setTimeout(() => {
           navigateToLogin();
         }, 2000);
-        return;
       }
     }
-  }, [loginDetails, userInfo, loading]);
+  }, [userInfo]);
 
   const clearMsg = (
     setMsg: React.Dispatch<React.SetStateAction<string | undefined>>
@@ -59,13 +60,17 @@ const SignUpPage = () => {
 
   const registerUser = async (loginDetails: Login): Promise<void> => {
     try {
-      await fetch("http://localhost:3000/users", {
+      const response = await fetch("http://localhost:3000/users", {
         method: "POST",
         headers: {
-          "content-type": "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(loginDetails),
       });
+
+      if (!response.ok) {
+        throw new Error("Failed to register user");
+      }
     } catch (error) {
       setErrorMsg("Failed to register user");
       clearMsg(setErrorMsg);
@@ -74,6 +79,8 @@ const SignUpPage = () => {
 
   const signIn = (event: SyntheticEvent): void => {
     event.preventDefault();
+    setErrorMsg("");
+    setSuccessMsg("");
     if (!userName.current?.value) {
       setErrorMsg("Enter username");
       clearMsg(setErrorMsg);
