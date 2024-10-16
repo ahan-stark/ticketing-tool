@@ -13,13 +13,14 @@ const Header = () => {
   const curLocation = useLocation();
   const dispatch = useDispatch();
   const checkStorageForUser = localStorage.getItem("user");
+
   const loggedInStatus: boolean = useSelector(
     (store: any) => store.authLogin.isLoggedIn
   );
   if (checkStorageForUser) {
     if (!loggedInStatus) {
       dispatch(addLogin());
-      dispatch(addUser(JSON.parse(checkStorageForUser)));
+      dispatch(addUser(JSON.parse(checkStorageForUser)[0]));
     }
   }
   const navigateToHome = (): void => {

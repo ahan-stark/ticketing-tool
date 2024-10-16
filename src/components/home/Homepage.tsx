@@ -19,8 +19,9 @@ const Homepage = () => {
   const assignedTicketsInStore: Ticket[] = useSelector(
     (store: RootState) => store.tickets
   );
-  const assignedToUser = useFetchAssignedTickets(userDetails.id!);
+  const assignedToUser = useFetchAssignedTickets(userDetails.id ?? undefined);
   useEffect(() => {
+    if (!assignedToUser) return;
     if (assignedToUser && assignedTicketsInStore.length === 0 && isLoggedIn) {
       dispatch(addAssignedTickets(assignedToUser));
     }
@@ -33,7 +34,11 @@ const Homepage = () => {
   };
   return (
     <div className={HomepageCSS.displayHome}>
-      <div className={HomepageCSS.flexChild} onClick={navigateToCreateTicket} data-testid = "createTicketTab">
+      <div
+        className={HomepageCSS.flexChild}
+        onClick={navigateToCreateTicket}
+        data-testid="createTicketTab"
+      >
         Create new ticket
       </div>
       <div className={HomepageCSS.flexChild} onClick={navigateToDisplayTickets}>

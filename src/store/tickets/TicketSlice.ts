@@ -14,7 +14,7 @@ const TicketSlice = createSlice({
     },
     updateAssignedTickets: (state, action) => {
       const indexOfTicket = state.findIndex(
-        (ticket: Ticket) => (ticket.id = action.payload)
+        (ticket: Ticket) => ticket.id == action.payload
       );
       state.splice(indexOfTicket, 1);
     },

@@ -14,6 +14,7 @@ import { Ticket } from "../../utils/tickets/Ticket";
 import { useState } from "react";
 import TransitionsModal from "./TransitionsModal";
 import { Column, Data } from "../../utils/materialUI/Table";
+import { green, lightGreen, red, yellow } from "@mui/material/colors";
 
 const columns: readonly Column[] = [
   { id: "assigner", label: "Assigner", minWidth: 170 },
@@ -69,7 +70,15 @@ export default function StickyHeadTable() {
   };
 
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
+    <Paper
+      sx={{
+        width: "85%",
+        marginLeft: "auto",
+        marginRight: "auto",
+        marginTop: "2%",
+        overflow: "hidden",
+      }}
+    >
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -79,11 +88,14 @@ export default function StickyHeadTable() {
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
+                  sx={{ color: green[700], fontWeight: "600" }}
                 >
                   {column.label}
                 </TableCell>
               ))}
-              <TableCell>Action</TableCell>
+              <TableCell sx={{ color: green[700], fontWeight: "600" }}>
+                Action
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

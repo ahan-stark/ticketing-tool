@@ -27,7 +27,6 @@ export default function TransitionsModal({
   ticketDetails,
 }: TransitionsModalProps) {
   const dispatch = useDispatch();
-  const [state, setState] = React.useState<boolean | null>(null);
   const handleClose = () => setOpenModal(false);
   const resolveTicket = async (ticketId: string): Promise<void> => {
     await fetch("http://localhost:3000/tickets/" + ticketId, {
@@ -36,7 +35,6 @@ export default function TransitionsModal({
     dispatch(updateAssignedTickets(ticketId));
     handleClose();
   };
-
   return (
     <div>
       <Modal
@@ -66,7 +64,7 @@ export default function TransitionsModal({
                   Assigned Date : {ticketDetails.date}
                 </Typography>
                 <Typography sx={{ mt: 2 }}>
-                  <div>Description : {ticketDetails.description}</div>
+                  Description : {ticketDetails.description}
                 </Typography>
               </>
             )}
