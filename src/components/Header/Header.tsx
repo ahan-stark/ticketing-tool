@@ -29,7 +29,7 @@ const Header = () => {
   const isLoggedIn = useSelector((store: any) => store.authLogin.isLoggedIn);
   useEffect(() => {
     if (isLoggedIn) navigate("/home");
-    if (!isLoggedIn) navigate("/login");
+    if (!isLoggedIn && curLocation.pathname != "/signin") navigate("/login");
   }, [isLoggedIn]);
   const logout = (): void => {
     localStorage.clear();

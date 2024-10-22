@@ -1,15 +1,18 @@
 import React, { SyntheticEvent, useRef, useState, useEffect } from "react";
-import { Login } from "../../utils/auth/Login";
+import { addUserToStorage, Login } from "../../utils/auth/Login";
 import SignUpModuleCSS from "./SignUp.module.css";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useGetUser } from "../../hooks/auth/useGetAllUsers";
+import { addLogin } from "../../store/auth/LoginSlice";
+import { addUser } from "../../store/user/userSlice";
+import { useDispatch } from "react-redux";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const userName = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string>();
   const [successMsg, setSuccessMsg] = useState<string>();
   const [loginDetails, setLoginDetails] = useState<Login | undefined>(
@@ -22,6 +25,17 @@ const SignUpPage = () => {
   const clearInputs = () => {
     if (userName.current) userName.current.value = "";
     if (password.current) password.current.value = "";
+  };
+  //below function is done so that user is redirected to homepage after successfull registration
+  //since in registering we will be having only username and password so to obtain the details with id, we do this
+  const proceedToHomePage = async (loginDetails: Login) => {
+    const userDetails = await fetch(
+      `http://localhost:3000/users?userName=${loginDetails.userName}`
+    );
+    const userdata: Login = await userDetails.json();
+    addUserToStorage(userdata);
+    dispatch(addLogin());
+    dispatch(addUser(userdata));
   };
 
   useEffect(() => {
@@ -40,7 +54,7 @@ const SignUpPage = () => {
         clearMsg(setSuccessMsg);
         clearInputs();
         setTimeout(() => {
-          navigateToLogin();
+          proceedToHomePage(loginDetails!);
         }, 2000);
       }
     }

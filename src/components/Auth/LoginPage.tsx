@@ -1,5 +1,9 @@
 import React, { SyntheticEvent, useRef, useState, useEffect } from "react";
-import { checkIfValidUser, Login } from "../../utils/auth/Login";
+import {
+  addUserToStorage,
+  checkIfValidUser,
+  Login,
+} from "../../utils/auth/Login";
 import { useGetUser } from "../../hooks/auth/useGetAllUsers";
 import LoginModuleCSS from "./Login.module.css";
 import { Button } from "@mui/material";
@@ -26,7 +30,7 @@ const LoginPage = () => {
     }, 2000);
   };
   const handleLogin = (event: SyntheticEvent): void => {
-    event.preventDefault();    
+    event.preventDefault();
     if (!userName.current?.value) {
       setErrorMsg("Enter username");
       clearErrorMsg();
@@ -54,9 +58,9 @@ const LoginPage = () => {
           ? checkIfValidUser(loginDetails, user[0])
           : false;
         if (isValidUser) {
-          localStorage.setItem("user", JSON.stringify(user));
+          addUserToStorage(user[0]);
           dispatch(addLogin());
-          dispatch(addUser(user[0]!));
+          dispatch(addUser(user[0]));
           setIsSubmitted(false);
         } else {
           setErrorMsg("Username and Password not matching");
