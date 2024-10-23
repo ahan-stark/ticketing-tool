@@ -20,7 +20,7 @@ const Header = () => {
   if (checkStorageForUser) {
     if (!loggedInStatus) {
       dispatch(addLogin());
-      dispatch(addUser(JSON.parse(checkStorageForUser)[0]));
+      dispatch(addUser(JSON.parse(checkStorageForUser)));
     }
   }
   const navigateToHome = (): void => {

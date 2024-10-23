@@ -7,7 +7,7 @@
   justify-content: space-evenly;
 }
 .flexChild {
-  border: solid orange;
+  border: solid 4px #28de58;
   height: 5em;
   width: 28%;
   text-align: center;
@@ -18,6 +18,6 @@
   font-weight: bold;
 }
 .flexChild:hover {
-  background: lightgray;
+  background: lightgoldenrodyellow;
   scale: 1.1;
 }

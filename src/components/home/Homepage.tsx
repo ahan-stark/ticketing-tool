@@ -42,8 +42,8 @@ const Homepage = () => {
         Create new ticket
       </div>
       <div className={HomepageCSS.flexChild} onClick={navigateToDisplayTickets}>
-        Display Tickets
-        <div>{assignedToUser?.length}</div>
+        Assigned Tickets -{" "}
+        <span style={{ color: "green" }}>{assignedToUser?.length}</span>
       </div>
     </div>
   );

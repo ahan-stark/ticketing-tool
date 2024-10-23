@@ -5,7 +5,7 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 import { TransitionsModalProps } from "../../utils/materialUI/Modal";
-import { Button } from "@mui/material";
+import { Button, colors } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { updateAssignedTickets } from "../../store/tickets/TicketSlice";
 
@@ -16,9 +16,10 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  border: "solid 3px lightgreen",
   boxShadow: 24,
   p: 4,
+  borderRadius: "13px",
 };
 
 export default function TransitionsModal({
@@ -46,7 +47,10 @@ export default function TransitionsModal({
         slots={{ backdrop: Backdrop }}
         slotProps={{
           backdrop: {
-            timeout: 500,
+            timeout: 200,
+            sx: {
+              backgroundColor: "rgba(252, 245, 192, 0.3)",
+            },
           },
         }}
       >
