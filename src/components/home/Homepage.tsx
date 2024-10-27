@@ -32,6 +32,9 @@ const Homepage = () => {
   const navigateToDisplayTickets = (): void => {
     navigate("/display-tickets");
   };
+  const navigateToResolvedTickets = () => {
+    navigate("/resolved-tickets");
+  };
   return (
     <div className={HomepageCSS.displayHome}>
       <div
@@ -44,6 +47,12 @@ const Homepage = () => {
       <div className={HomepageCSS.flexChild} onClick={navigateToDisplayTickets}>
         Assigned Tickets -{" "}
         <span style={{ color: "green" }}>{assignedToUser?.length}</span>
+      </div>
+      <div
+        className={HomepageCSS.flexChild}
+        onClick={navigateToResolvedTickets}
+      >
+        Resolved Tickets
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ import store from "./store/store";
 import Homepage from "./components/home/Homepage";
 import CreateNewTicket from "./components/home/createTicket/CreateNewTicket";
 import DisplayTickets from "./components/home/displayTicket/DisplayTickets";
+import DisplayResolvedTicket from "./components/home/displayResolvedTicket/DisplayResolvedTicket";
 
 function App() {
   const Layout = () => {
@@ -44,6 +45,10 @@ function App() {
         {
           path: "/display-tickets",
           element: <DisplayTickets />,
+        },
+        {
+          path: "/resolved-tickets",
+          element: <DisplayResolvedTicket />,
         },
       ],
     },

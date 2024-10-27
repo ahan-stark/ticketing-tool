@@ -1,15 +1,17 @@
 .displayHome {
-  width: 98vh;
-  min-height: 85vh;
   min-width: 96vw;
+  min-height: 85vh;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 1em;
 }
 .flexChild {
   border: solid 4px #28de58;
+  flex-basis: 28%;
+  max-width: 28%;
   height: 5em;
-  width: 28%;
   text-align: center;
   padding-top: 4%;
   margin-top: 10%;

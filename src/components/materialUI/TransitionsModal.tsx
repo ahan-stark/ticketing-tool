@@ -5,9 +5,20 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 import { TransitionsModalProps } from "../../utils/materialUI/Modal";
-import { Button, colors } from "@mui/material";
+import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { updateAssignedTickets } from "../../store/tickets/TicketSlice";
+import {
+  addResolvedTickets,
+  deleteResolvedTicket,
+} from "../../utils/tickets/Ticket";
+import { green } from "@mui/material/colors";
+
+const inputStyle = {
+  width: "84%",
+  height: "6em",
+  "marginTop": "2em",
+};
 
 const style = {
   position: "absolute",
@@ -27,14 +38,19 @@ export default function TransitionsModal({
   open,
   ticketDetails,
 }: TransitionsModalProps) {
+  const resolutionNotes = React.useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
   const handleClose = () => setOpenModal(false);
   const resolveTicket = async (ticketId: string): Promise<void> => {
-    await fetch("http://localhost:3000/tickets/" + ticketId, {
-      method: "DELETE",
-    });
+    await addResolvedTickets(ticketId, resolutionNotes.current?.value!);
+    await deleteResolvedTicket(ticketId);
     dispatch(updateAssignedTickets(ticketId));
     handleClose();
+  };
+  const proceedToResolve = (ticketId: string) => {
+    if (resolutionNotes.current?.value) {
+      resolveTicket(ticketId);
+    }
   };
   return (
     <div>
@@ -56,7 +72,12 @@ export default function TransitionsModal({
       >
         <Fade in={open}>
           <Box sx={style}>
-            <Typography id="transition-modal-title" variant="h6" component="h2">
+            <Typography
+              id="transition-modal-title"
+              variant="h6"
+              component="h2"
+              sx={{ color: green[700], fontSize:"26px"}}
+            >
               Ticket Details
             </Typography>
             {ticketDetails && (
@@ -70,14 +91,20 @@ export default function TransitionsModal({
                 <Typography sx={{ mt: 2 }}>
                   Description : {ticketDetails.description}
                 </Typography>
+                <input
+                  type="text"
+                  ref={resolutionNotes}
+                  placeholder="Resolution Notes"
+                  style={inputStyle}
+                />
               </>
             )}
-            <Typography sx={{ mt: 3 }}>
+            <Typography sx={{}}>
               <Button
                 variant="contained"
                 size="small"
                 onClick={() => {
-                  resolveTicket(ticketDetails.id);
+                  proceedToResolve(ticketDetails.id);
                 }}
               >
                 Resolve
