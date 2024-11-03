@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import LoginSlice from "../store/auth/LoginSlice";
 import UserSlice from "../store/user/userSlice";
 import TicketSlice from "../store/tickets/TicketSlice";
+import HamBurgerSlice from "./hamBurger/HamBurgerSlice";
 
 const store = configureStore({
   reducer: {
     authLogin: LoginSlice,
     user: UserSlice,
     tickets: TicketSlice,
+    hamBurger: HamBurgerSlice,
   },
 });
 // Infer the `RootState` and `AppDispatch` types from the store itself

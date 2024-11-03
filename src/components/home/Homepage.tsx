@@ -1,16 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import HomepageCSS from "../home/styles/Homepage.module.css";
-import { useNavigate } from "react-router-dom";
 import useFetchAssignedTickets from "../../hooks/tickets/useFetchAssignedTickets";
 import { useSelector } from "react-redux";
-import store, { RootState } from "../../store/store";
+import { RootState } from "../../store/store";
 import { Login } from "../../utils/auth/Login";
 import { useDispatch } from "react-redux";
 import { addAssignedTickets } from "../../store/tickets/TicketSlice";
 import { Ticket } from "../../utils/tickets/Ticket";
+import hamBurgerImg from "../../utils/img/hamburger.png";
+import HamBurger from "./hamBurger/HamBurger";
+import { HamBurgerValue } from "../../utils/hamBurger/Hamburger";
+import CreateNewTicket from "./createTicket/CreateNewTicket";
+import DisplayTickets from "./displayTicket/DisplayTickets";
+import DisplayResolvedTicket from "./displayResolvedTicket/DisplayResolvedTicket";
 
 const Homepage = () => {
-  const navigate = useNavigate();
+  const [openHamBurger, setOpenHamBurger] = useState<boolean>(false);
   const dispatch = useDispatch();
   const userDetails: Login = useSelector((store: RootState) => store.user);
   const isLoggedIn: boolean = useSelector(
@@ -19,6 +24,9 @@ const Homepage = () => {
   const assignedTicketsInStore: Ticket[] = useSelector(
     (store: RootState) => store.tickets
   );
+  const curHamburgerOption: HamBurgerValue = useSelector(
+    (state: RootState) => state.hamBurger.curOption
+  );
   const assignedToUser = useFetchAssignedTickets(userDetails.id ?? undefined);
   useEffect(() => {
     if (!assignedToUser) return;
@@ -26,33 +34,24 @@ const Homepage = () => {
       dispatch(addAssignedTickets(assignedToUser));
     }
   }, [assignedToUser, assignedTicketsInStore.length, isLoggedIn]);
-  const navigateToCreateTicket = (): void => {
-    navigate("/create-ticket");
-  };
-  const navigateToDisplayTickets = (): void => {
-    navigate("/display-tickets");
-  };
-  const navigateToResolvedTickets = () => {
-    navigate("/resolved-tickets");
-  };
   return (
-    <div className={HomepageCSS.displayHome}>
-      <div
-        className={HomepageCSS.flexChild}
-        onClick={navigateToCreateTicket}
-        data-testid="createTicketTab"
-      >
-        Create new ticket
+    <div className={HomepageCSS.mainDiv}>
+      <div className={HomepageCSS.hamBurgerContainer}>
+        {openHamBurger && <HamBurger />}
+        <div>
+          <img
+            src={hamBurgerImg}
+            className={HomepageCSS.hamBurger}
+            onClick={() => {
+              setOpenHamBurger(!openHamBurger);
+            }}
+          />
+        </div>
       </div>
-      <div className={HomepageCSS.flexChild} onClick={navigateToDisplayTickets}>
-        Assigned Tickets -{" "}
-        <span style={{ color: "green" }}>{assignedToUser?.length}</span>
-      </div>
-      <div
-        className={HomepageCSS.flexChild}
-        onClick={navigateToResolvedTickets}
-      >
-        Resolved Tickets
+      <div className={HomepageCSS.displayHome}>
+        {curHamburgerOption === "createTicket" && <CreateNewTicket />}
+        {curHamburgerOption === "assignedTickets" && <DisplayTickets />}
+        {curHamburgerOption === "resolvedTickets" && <DisplayResolvedTicket />}
       </div>
     </div>
   );

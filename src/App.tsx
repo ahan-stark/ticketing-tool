@@ -38,18 +38,6 @@ function App() {
           path: "/home",
           element: <Homepage />,
         },
-        {
-          path: "/create-ticket",
-          element: <CreateNewTicket />,
-        },
-        {
-          path: "/display-tickets",
-          element: <DisplayTickets />,
-        },
-        {
-          path: "/resolved-tickets",
-          element: <DisplayResolvedTicket />,
-        },
       ],
     },
   ]);

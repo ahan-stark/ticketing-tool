@@ -1,10 +1,10 @@
 .formFlex {
   display: flex;
   flex-direction: column;
-  width: 100vw;
   min-height: 69.6vh;
   align-items: center;
   padding-top: 4%;
+  margin-top: 10%;
 }
 .childFormDiv {
   display: flex;
@@ -40,5 +40,5 @@
 .errorMsg {
   padding-top: 15px;
   color: red;
-  text-allign : center;
+  text-allign: center;
 }

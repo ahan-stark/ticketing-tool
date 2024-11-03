@@ -79,10 +79,10 @@ export default function StickyHeadTable() {
   return (
     <Paper
       sx={{
-        width: "85%",
+        width: "100%",
         marginLeft: "auto",
         marginRight: "auto",
-        marginTop: "2%",
+        marginTop: "5%",
         overflow: "hidden",
       }}
     >

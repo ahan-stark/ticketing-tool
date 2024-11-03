@@ -1,0 +1,19 @@
+.mainContainer {
+  width: 10em;
+  background: #f9faed;
+  display: flex;
+  flex-direction: column;
+}
+.options {
+  cursor: pointer;
+  margin-top: 1em;
+  margin-left: 7px;
+  border: solid 1px green;
+  text-align: center;
+  padding-top: 11px;
+  padding-bottom: 14px;
+  border-radius: 10px;
+  color: darkgreen;
+  font-weight: 600;
+  margin-right: 12px;
+}
