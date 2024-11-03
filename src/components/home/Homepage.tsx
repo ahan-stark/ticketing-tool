@@ -48,7 +48,7 @@ const Homepage = () => {
           />
         </div>
       </div>
-      <div className={HomepageCSS.displayHome}>
+      <div className={HomepageCSS.displayHome} style={{ width: "100%" }}>
         {curHamburgerOption === "createTicket" && <CreateNewTicket />}
         {curHamburgerOption === "assignedTickets" && <DisplayTickets />}
         {curHamburgerOption === "resolvedTickets" && <DisplayResolvedTicket />}

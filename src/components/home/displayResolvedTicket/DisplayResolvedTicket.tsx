@@ -4,16 +4,18 @@ import { Login } from "../../../utils/auth/Login";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { ResolvedTicket } from "../../../utils/tickets/Ticket";
+import ResolvedTable from "../../materialUI/ResolvedTable";
+import DisplayResolvedTicketCSS from "./DisplayResolvedTicket.module.css";
 
 const DisplayResolvedTicket = () => {
   const userDetails: Login = useSelector((store: RootState) => store.user);
-  const resolvedTickets: ResolvedTicket[] | null = useFetchResolvedTickets(
+  const resolvedTicketsData: ResolvedTicket[] | null = useFetchResolvedTickets(
     userDetails.id!
   );
-  if (!resolvedTickets) return <div>Loading...</div>;
-  if(resolvedTickets.length === 0)
-      return <div>No ticket resolved yet</div>
-  return <div>{JSON.stringify(resolvedTickets)}</div>;
+  if (!resolvedTicketsData) return <div>Loading...</div>;
+  if (resolvedTicketsData.length === 0)
+    return <div className={DisplayResolvedTicketCSS.noTickets}>No ticket resolved yet!</div>;
+  return <ResolvedTable resolvedData={resolvedTicketsData} />;
 };
 
 export default DisplayResolvedTicket;

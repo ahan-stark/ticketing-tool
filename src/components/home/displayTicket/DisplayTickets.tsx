@@ -25,7 +25,7 @@ const DisplayTickets = () => {
   }
   
   return (
-    <div>
+    <div style={{width:"100%", marginLeft : "4%", marginRight :"2%"}}>
       <StickyHeadTable />
     </div>
   );
