@@ -2,7 +2,7 @@ import React from "react";
 import HamBurgerCSS from "./HamBurger.module.css";
 import { useDispatch } from "react-redux";
 import { changeOption } from "../../../store/hamBurger/HamBurgerSlice";
-import { HamBurgerValue } from "../../../utils/hamBurger/Hamburger";
+import { hamburgerOptions, HamBurgerValue } from "../../../utils/hamBurger/Hamburger";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 
@@ -14,10 +14,6 @@ const HamBurger = () => {
   const curOption: HamBurgerValue = useSelector(
     (store: RootState) => store.hamBurger.curOption
   );
-  interface hamburgerOptions {
-    option: string;
-    value: HamBurgerValue;
-  }
   const options: hamburgerOptions[] = [
     { option: "Create Ticket", value: "createTicket" },
     { option: "Assigned Tickets", value: "assignedTickets" },
