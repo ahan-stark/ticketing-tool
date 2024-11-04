@@ -7,13 +7,13 @@ import { Login } from "../../utils/auth/Login";
 import { useDispatch } from "react-redux";
 import { addAssignedTickets } from "../../store/tickets/TicketSlice";
 import { Ticket } from "../../utils/tickets/Ticket";
-import hamBurgerImg from "../../utils/img/hamburger.png";
 import HamBurger from "./hamBurger/HamBurger";
 import { HamBurgerValue } from "../../utils/hamBurger/Hamburger";
 import CreateNewTicket from "./createTicket/CreateNewTicket";
 import DisplayTickets from "./displayTicket/DisplayTickets";
 import DisplayResolvedTicket from "./displayResolvedTicket/DisplayResolvedTicket";
-
+import MenuIcon from "@mui/icons-material/Menu";
+import { green } from "@mui/material/colors";
 const Homepage = () => {
   const [openHamBurger, setOpenHamBurger] = useState<boolean>(false);
   const dispatch = useDispatch();
@@ -39,12 +39,11 @@ const Homepage = () => {
       <div className={HomepageCSS.hamBurgerContainer}>
         {openHamBurger && <HamBurger />}
         <div>
-          <img
-            src={hamBurgerImg}
-            className={HomepageCSS.hamBurger}
+          <MenuIcon
             onClick={() => {
               setOpenHamBurger(!openHamBurger);
             }}
+            sx={{paddingLeft:"4px", cursor :"pointer" , color : green[800], fontSize :"2.25em"}}
           />
         </div>
       </div>
