@@ -6,19 +6,16 @@ import Header from "./components/header/Header";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import Homepage from "./components/home/Homepage";
-import CreateNewTicket from "./components/home/createTicket/CreateNewTicket";
-import DisplayTickets from "./components/home/displayTicket/DisplayTickets";
-import DisplayResolvedTicket from "./components/home/displayResolvedTicket/DisplayResolvedTicket";
 
 function App() {
   const Layout = () => {
     return (
-      <>
+      <div style={{ display: "flex", flexDirection :"column", height: "100vh" }}>
         <Provider store={store}>
-          <Header />
+          <Header/>
           <Outlet></Outlet>
         </Provider>
-      </>
+      </div>
     );
   };
   const router = createBrowserRouter([

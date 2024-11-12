@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { ResolvedTicket } from "../../utils/tickets/Ticket";
-import { green, grey } from "@mui/material/colors";
+import { green, grey, red } from "@mui/material/colors";
 
 function createData(data: ResolvedTicket) {
   const {
@@ -41,7 +41,7 @@ export default function ResolvedTable({ resolvedData }: ResolvedTableProps) {
     (data: ResolvedTicket): ResolvedTicket => createData(data)
   );
   return (
-    <TableContainer sx={{ marginTop: "1%" , marginRight :"1%", marginLeft :"1%"}}>
+    <TableContainer sx={{ marginTop: "1%" , marginRight :"1%", marginLeft :"18px"}}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow sx = {{background:grey[100]}}>
@@ -78,7 +78,7 @@ export default function ResolvedTable({ resolvedData }: ResolvedTableProps) {
           {rows.map((row) => (
             <TableRow
               key={row.id}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              sx={{ "&:last-child td, &:last-child th": {borderBlockColor :grey[100], borderBlockWidth : "3px" }}}
             >
               <TableCell component="th" scope="row">
                 {row.assignerName}

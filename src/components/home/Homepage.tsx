@@ -15,7 +15,6 @@ import DisplayResolvedTicket from "./displayResolvedTicket/DisplayResolvedTicket
 import MenuIcon from "@mui/icons-material/Menu";
 import { green } from "@mui/material/colors";
 const Homepage = () => {
-  const [openHamBurger, setOpenHamBurger] = useState<boolean>(false);
   const dispatch = useDispatch();
   const userDetails: Login = useSelector((store: RootState) => store.user);
   const isLoggedIn: boolean = useSelector(
@@ -27,7 +26,9 @@ const Homepage = () => {
   const curHamburgerOption: HamBurgerValue = useSelector(
     (state: RootState) => state.hamBurger.curOption
   );
-  const assignedToUser = useFetchAssignedTickets(userDetails.id ?? undefined);
+  const showHamBurger: boolean = useSelector(
+    (store: RootState) => store.hamBurger.showHamBurger
+  );  const assignedToUser = useFetchAssignedTickets(userDetails.id ?? undefined);
   useEffect(() => {
     if (!assignedToUser) return;
     if (assignedToUser && assignedTicketsInStore.length === 0 && isLoggedIn) {
@@ -37,15 +38,7 @@ const Homepage = () => {
   return (
     <div className={HomepageCSS.mainDiv}>
       <div className={HomepageCSS.hamBurgerContainer}>
-        {openHamBurger && <HamBurger />}
-        <div>
-          <MenuIcon
-            onClick={() => {
-              setOpenHamBurger(!openHamBurger);
-            }}
-            sx={{paddingLeft:"4px", cursor :"pointer" , color : green[800], fontSize :"2.25em"}}
-          />
-        </div>
+        {showHamBurger && <HamBurger />}
       </div>
       <div className={HomepageCSS.displayHome} style={{ width: "100%" }}>
         {curHamburgerOption === "createTicket" && <CreateNewTicket />}
